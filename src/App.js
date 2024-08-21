@@ -5,7 +5,7 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      filme:[],
+      filmes:[],
       carregando: false,
       erro: '' 
     };
@@ -15,12 +15,12 @@ class App extends Component{
     this.setState({carregando: true, erro:''});
 
     try{
-          const response = await
-        axios.get(`http://img.omdbapi.com/?apikey=[129861cc]&`);
+      const response = await
+      axios.get(`http://www.omdbapi.com/?i=tt3896198&apikey=129861cc`);
       const filme = response.data;
       const novoFilme = {
-        titulo: filme.titulo,
-        poster: filme.sprites.front_default
+        title: filme.Title,
+        poster: `${filme.Poster}&h=100`
       };
 
       this.setState((prevState) => ({
@@ -51,8 +51,8 @@ class App extends Component{
           {filmes.length > 0 ? (
             filmes.map((filme, index) => (
               <li key={index}>
-                <strong>{filme.titulo}</strong>
-                <img src={filme.poster} alt={filme.titulo} width="100"></img>
+                <strong>{filme.Title}</strong>
+                <img src={filme.poster} alt={filme.title}></img>
                 <button onClick={()=>this.removerFilme(index)}>Remover</button>
               </li>
             ))
